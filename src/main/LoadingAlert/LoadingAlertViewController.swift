@@ -132,6 +132,14 @@ class LoadingAlertViewController: UIViewController {
         return self
     }
     
+    // アニメーション速度
+    private var animationDuration: Double = 0.2
+    
+    public func setAnimationDuration(_ animationDuration: Double) -> LoadingAlertViewController {
+        self.animationDuration = animationDuration
+        return self
+    }
+    
     private var alertyInit = false;
     
     public func setupLoadingAlert() -> LoadingAlertViewController {
@@ -220,13 +228,34 @@ class LoadingAlertViewController: UIViewController {
     
     public func show() {
         DispatchQueue.main.async {
+            self.ui_BackgroundView.alpha = 0
+            self.ui_BaseView.alpha = 0
+            
             self.ui_RootView.isHidden = false
+            
+            UIView.animate(
+                withDuration: self.animationDuration,
+                animations: {
+                    self.ui_BackgroundView.alpha = self.backgroundBrightness
+                    self.ui_BaseView.alpha = 1
+                }
+            )
         }
     }
     
     public func hide() {
         DispatchQueue.main.async {
-            self.ui_RootView.isHidden = true
+            UIView.animate(
+                withDuration: self.animationDuration,
+                animations: {
+                    self.ui_BackgroundView.alpha = 0
+                    self.ui_BaseView.alpha = 0
+                }
+            )
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration) {
+                self.ui_RootView.isHidden = true
+            }
         }
     }
     
