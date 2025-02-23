@@ -249,12 +249,11 @@ class LoadingAlertViewController: UIViewController {
                 animations: {
                     self.ui_BackgroundView.alpha = 0
                     self.ui_BaseView.alpha = 0
+                },
+                completion: { _ in
+                    self.ui_RootView.isHidden = true
                 }
             )
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration) {
-                self.ui_RootView.isHidden = true
-            }
         }
     }
     
