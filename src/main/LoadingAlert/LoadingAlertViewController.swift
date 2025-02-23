@@ -153,7 +153,6 @@ class LoadingAlertViewController: UIViewController {
         self.viewDidLoad()
         
         self.baseViewController.view.addSubview(self.view)
-        self.baseViewController.addChild(self)
         
         self.didMove(toParent: self.baseViewController)
         
